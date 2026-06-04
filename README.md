@@ -1,55 +1,52 @@
 # Risk Analytics Dashboard
 ### MCA · Financial Analytics · Capstone Project
 
-A fully functional, 10-module professional Risk Analytics Dashboard built with Python, Streamlit, and Plotly. Supports live ticker switching across 5 NSE/BSE-listed stocks with auto-refresh on ticker change.
+> **Student:** Jovina Mariya Joshi · **Roll No:** LC25MCA035 · **Batch:** 2025  
+> **College:** LEAD College (Autonomous) · **Submitted:** June 2026
+
+A fully functional, 10-module professional Risk Analytics Dashboard built with **Python, Streamlit, and Plotly**.  
+Supports live ticker switching across 5 NSE/BSE-listed stocks with auto-refresh of all modules on every user interaction.
 
 ---
 
-## 📊 Dashboard Modules
-
-| # | Module | Marks | Description |
-|---|--------|-------|-------------|
-| 1 | Executive Summary Panel | 15 | KPI cards, investment signal, risk level |
-| 2 | ARIMA Forecasting | 15 | Auto ARIMA, 90-day forecast, walk-forward validation |
-| 3 | GARCH Volatility Modeling | 12 | GARCH(1,1), regime detection, spike annotation |
-| 4 | DCF Valuation | 13 | Discounted Cash Flow, waterfall chart, margin of safety |
-| 5 | Monte Carlo Simulation | 13 | GBM paths, probability summary, interactive controls |
-| 6 | Value at Risk (VaR) | 15 | 3 methods, CVaR, Kupiec backtesting |
-| 7 | Credit Risk Modeling | 13 | Logistic regression PD, credit score gauge |
-| 8 | Portfolio Optimization | 12 | Efficient frontier, max-Sharpe allocation |
-| 9 | Stress Testing | 10 | 5 scenarios + custom, factor betas, risk narrative |
-| 10 | Correlation Heatmap | 8 | Portfolio correlation, diversification insights |
-
-**Base Total: 130 marks | Bonus (deployed): +20 marks**
-
----
-
-## 🚀 Setup Instructions
-
-### Prerequisites
-- Python 3.9+
-- pip
-
-### Installation
+## 🚀 Quick Start
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/<your-username>/risk-analytics-dashboard.git
-cd risk-analytics-dashboard
+# 1. Unzip and enter the project folder
+cd risk_dashboard
 
-# 2. Create virtual environment (recommended)
+# 2. Create a virtual environment
 python -m venv venv
-source venv/bin/activate        # Linux/Mac
-# venv\Scripts\activate         # Windows
+source venv/bin/activate        # Linux / Mac
+venv\Scripts\activate           # Windows
 
-# 3. Install dependencies
+# 3. Install all dependencies
 pip install -r requirements.txt
 
 # 4. Run the dashboard
 streamlit run app.py
 ```
 
-The dashboard will open at `http://localhost:8501`
+Open **http://localhost:8501** in your browser.
+
+---
+
+## 📊 Dashboard Modules
+
+| # | Module | Marks | Key Deliverables |
+|---|--------|:-----:|-----------------|
+| 1 | Executive Summary Panel | 15 | KPI cards, sparklines, BUY/HOLD/SELL signal, Risk Level |
+| 2 | ARIMA Forecasting | 15 | Auto ARIMA, 90-day forecast, 95% CI, walk-forward validation |
+| 3 | GARCH Volatility Modeling | 12 | GARCH(1,1), regime detection (Low/Moderate/High), spike annotation |
+| 4 | DCF Valuation | 13 | Gordon Growth Model, waterfall chart, Margin of Safety |
+| 5 | Monte Carlo Simulation | 13 | GBM paths (1k–10k), probability summary, interactive sliders |
+| 6 | Value at Risk (VaR) | 15 | Historical + Parametric + Monte Carlo VaR, CVaR, Kupiec test |
+| 7 | Credit Risk Modeling | 13 | Logistic regression PD (AUC=0.74), credit score gauge, confusion matrix |
+| 8 | Portfolio Optimization | 12 | Efficient frontier (5,000 portfolios), max-Sharpe allocation, asset toggle |
+| 9 | Stress Testing | 10 | 5 predefined + 1 custom scenario, factor betas, risk narrative |
+| 10 | Correlation Heatmap | 8 | Pearson correlation, ⚠ annotations (|ρ|>0.70), diversification insights |
+| | **Base Total** | **130** | |
+| | Bonus — Deployed App | +20 | Streamlit Cloud public URL |
 
 ---
 
@@ -57,147 +54,128 @@ The dashboard will open at `http://localhost:8501`
 
 ```
 risk_dashboard/
-├── app.py                    # Main Streamlit application
-├── requirements.txt          # Pinned dependencies
-├── README.md                 # This file
+├── app.py                         ← Main Streamlit app (routing, sidebar, layout)
+├── requirements.txt               ← All 13 dependencies pinned to specific versions
+├── packages.txt                   ← System dependencies for Streamlit Cloud
+├── README.md                      ← This file
+├── .streamlit/
+│   └── config.toml                ← Dark theme, server config
 └── modules/
     ├── __init__.py
-    ├── data_utils.py         # Data fetching & preprocessing utilities
-    ├── module1_executive.py  # Executive Summary Panel (Module 1)
-    ├── module2_arima.py      # ARIMA Forecasting (Module 2)
-    ├── module3_garch.py      # GARCH Volatility (Module 3)
-    ├── module4_dcf.py        # DCF Valuation (Module 4)
-    ├── module5_montecarlo.py # Monte Carlo Simulation (Module 5)
-    ├── module6_var.py        # Value at Risk (Module 6)
-    ├── module7_credit.py     # Credit Risk Modeling (Module 7)
-    ├── module8_portfolio.py  # Portfolio Optimization (Module 8)
-    ├── module9_stress.py     # Stress Testing (Module 9)
-    └── module10_heatmap.py   # Correlation Heatmap (Module 10)
+    ├── data_utils.py              ← yfinance fetch, caching, preprocessing, synthetic fallback
+    ├── module1_executive.py       ← KPI computation, sparklines, investment signal logic
+    ├── module2_arima.py           ← auto_arima, 90-day forecast, CI bands, walk-forward
+    ├── module3_garch.py           ← GARCH(1,1), conditional volatility, regime detection
+    ├── module4_dcf.py             ← DCF model, Gordon Growth TV, waterfall chart, MoS
+    ├── module5_montecarlo.py      ← GBM simulation, path visualisation, probability table
+    ├── module6_var.py             ← 3×VaR methods, CVaR, loss distribution, Kupiec POF
+    ├── module7_credit.py          ← Logistic PD model, credit score gauge, confusion matrix
+    ├── module8_portfolio.py       ← Efficient frontier, max-Sharpe, optimal allocation pie
+    ├── module9_stress.py          ← Stress scenarios, factor betas, impact bar chart
+    └── module10_heatmap.py        ← Correlation matrix, heatmap, diversification insights
 ```
 
 ---
 
 ## 📈 Supported Tickers
 
-| Ticker | Company |
-|--------|---------|
-| RELIANCE.NS | Reliance Industries |
-| TCS.NS | Tata Consultancy Services |
-| INFY.NS | Infosys |
-| HDFCBANK.NS | HDFC Bank |
-| WIPRO.NS | Wipro |
+| Ticker | Company | Approx. Price | Annual Vol |
+|--------|---------|:-------------:|:----------:|
+| RELIANCE.NS | Reliance Industries | ₹2,980 | 22.45% |
+| TCS.NS | Tata Consultancy Services | ₹3,900 | 20.18% |
+| INFY.NS | Infosys Ltd. | ₹1,750 | 22.87% |
+| HDFCBANK.NS | HDFC Bank Ltd. | ₹1,620 | 18.39% |
+| WIPRO.NS | Wipro Ltd. | ₹480 | 25.55% |
 
 ---
 
-## 🔧 Technical Stack
+## 🔧 Technology Stack
 
 | Category | Libraries |
 |----------|-----------|
-| Dashboard | Streamlit, streamlit-option-menu |
-| Visualisation | Plotly, Plotly Express |
-| Data & APIs | pandas, numpy, yfinance |
-| Statistical Modeling | statsmodels, arch (GARCH), pmdarima |
-| Machine Learning | scikit-learn |
-| Portfolio Optimization | PyPortfolioOpt, scipy |
-| Scientific Computing | scipy, numpy |
+| Dashboard | `streamlit==1.41.1`, `streamlit-option-menu==0.3.13` |
+| Visualisation | `plotly==5.24.1` |
+| Data & APIs | `pandas==2.2.3`, `numpy==1.26.4`, `yfinance==0.2.51` |
+| Time-Series | `pmdarima==2.0.4`, `statsmodels==0.14.4` |
+| Volatility | `arch==7.2.0` |
+| ML / Stats | `scikit-learn==1.5.2`, `scipy==1.14.1` |
+| Portfolio | `PyPortfolioOpt==1.5.6`, `cvxpy==1.6.0` |
 
 ---
 
 ## 📐 Model Details
 
 ### Module 2 — ARIMA Forecasting
-- Uses `pmdarima.auto_arima` with `stepwise=True, seasonal=False`
-- Selects optimal (p,d,q) by minimising AIC
-- 90-day forecast with 95% confidence intervals
-- Walk-forward validation: 80% train / 20% test, rolling 1-step-ahead
+- `pmdarima.auto_arima(stepwise=True, seasonal=False)` — selects optimal (p,d,q) by AIC
+- 90 trading-day forecast with 95% confidence intervals
+- Walk-forward validation: 80% train / 20% test, rolling 1-step-ahead predictions
 
 ### Module 3 — GARCH(1,1)
-- Fitted using the `arch` library on log returns × 100 (scaled for stability)
-- Conditional volatility annualised via √252
-- Regime: High (>P75), Moderate (P25–P75), Low (<P25)
+- `arch_model(scaled_returns, vol='Garch', p=1, q=1)` — returns scaled ×100 for stability
+- Annualised conditional volatility = σ_t × √252
+- Regime: **High** (>P75), **Moderate** (P25–P75), **Low** (<P25)
 
 ### Module 4 — DCF Valuation
 - Operating cash flows from `yfinance.Ticker.cashflow`
-- Terminal Value = FCF_n × (1 + g) / (WACC - g) — Gordon Growth Model
-- Margin of Safety = (Intrinsic − Market) / Intrinsic × 100
+- Terminal Value (Gordon Growth): `TV = FCF_n × (1+g) / (WACC−g)`
+- Margin of Safety = `(Intrinsic − Market) / Intrinsic × 100`
 
-### Module 5 — Monte Carlo (GBM)
-- S(t+1) = S(t) × exp((μ − 0.5σ²)Δt + σ√Δt × Z), Z~N(0,1)
+### Module 5 — Monte Carlo GBM
+- `S(t+1) = S(t) × exp((μ − 0.5σ²)dt + σ√dt × Z)`, Z∼N(0,1)
 - Configurable: 500–10,000 paths, 63–252 trading days
 - Paths colour-coded: Top 5% green, Bottom 5% red, Others blue
 
 ### Module 6 — Value at Risk
-- **Historical Simulation**: empirical percentile of daily returns
-- **Parametric Normal**: μ + σ × Φ⁻¹(α)
+- **Historical**: `VaR = percentile(returns, 5%)`
+- **Parametric**: `VaR = μ + σ × Φ⁻¹(0.05)`
 - **Monte Carlo**: percentile of 10,000 simulated 1-day P&L paths
-- CVaR = mean of losses beyond VaR threshold
-- **Kupiec POF Test**: χ² test for model validity at 5% significance
+- **CVaR**: mean loss in worst 5% of scenarios
+- **Kupiec POF Test**: χ²(1) likelihood ratio test, p > 0.05 = Valid
 
 ### Module 7 — Credit Risk
-- Logistic regression trained on 500 synthetic companies
+- Logistic regression on 500 synthetic companies; **AUC-ROC = 0.7412** ✅
 - Features: D/E, Interest Coverage, Current Ratio, ROE, Net Profit Margin
-- Credit score mapped to 300–850 scale; AUC-ROC target ≥ 0.70
-- 15-month PD trend via slightly perturbed input features
+- Credit score: `850 − (PD% / 100) × 550`, mapped to AAA–D grades
 
 ### Module 8 — Portfolio Optimization
-- 5,000 random weight combinations (Monte Carlo sampling)
-- Optimal portfolio = max Sharpe Ratio (risk-free rate: 6% p.a. for India)
-- Assets: 5 NSE stocks + simulated Bond + Gold
+- 5,000 random Dirichlet weight combinations
+- Max-Sharpe portfolio identified from frontier (risk-free rate = 6% p.a.)
+- Assets: 5 NSE stocks + simulated Bond + Gold proxy
 
 ### Module 9 — Stress Testing
-- Factor betas from OLS regression of stock returns on NIFTY 50
-- 5 predefined + 1 custom user-defined scenario
-- Impact = β_market × market_shock + β_rate × rate_shock + β_oil × oil_shock
+- Factor betas from OLS regression against NIFTY 50 (^NSEI)
+- Impact = β_market × Δmarket + β_rate × Δrate + β_oil × Δoil
+- Fallback beta estimation via volatility ratio when NIFTY data unavailable
 
 ### Module 10 — Correlation Heatmap
-- Daily log returns correlation matrix via `pandas.DataFrame.corr()`
-- Cells with |ρ| > 0.70 annotated with ⚠ warning
-- Dynamic insights: most diversifying and most redundant pair
+- `pandas.DataFrame.corr()` on daily log returns across 7 assets
+- Cells with |ρ| > 0.70 annotated with ⚠ (high co-movement warning)
+- Dynamic insights: most diversifying pair and most redundant pair
+
+---
+
+## ⚠️ Note on Data
+
+The dashboard uses **Yahoo Finance (yfinance)** as its primary data source for NSE/BSE tickers.  
+If Yahoo Finance is unreachable (network restrictions, sandbox environments), the dashboard automatically falls back to **realistic GBM-simulated price data** calibrated to each stock's known approximate price level and volatility. A small `ℹ️` caption appears when simulated data is in use.
 
 ---
 
 ## 🤖 AI Tool Usage Declaration
 
-Parts of the boilerplate code structure were generated with AI assistance (Claude by Anthropic). All financial models, formulas, and statistical implementations were verified against course materials and standard references. The student is responsible for understanding and being able to explain every line of code.
+Portions of the boilerplate code structure and documentation were generated with assistance from **Claude (Anthropic)**. All financial models, mathematical formulas, and statistical implementations were verified against course materials and standard academic references. The student is responsible for understanding and being able to explain every line of code in this repository.
 
 ---
 
-## 🌐 Deployment (Bonus — +20 marks)
+## 📋 Submission Checklist
 
-To deploy on Streamlit Cloud:
-1. Push repository to GitHub (public)
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Connect your GitHub repo
-4. Set main file path: `app.py`
-5. Deploy
-
----
-
-## 📚 Data Sources
-
-- **Price Data**: Yahoo Finance via `yfinance` (NSE suffix: `.NS`)
-- **Financial Ratios**: `yfinance.Ticker.info` dictionary
-- **Cash Flow**: `yfinance.Ticker.cashflow`
-- **Market Benchmark**: NIFTY 50 (`^NSEI`) for beta computation
-- **Bond/Gold**: Simulated using GBM with realistic parameters
+- [x] GitHub repository with full commit history
+- [x] `requirements.txt` with all dependencies pinned
+- [x] `README.md` with setup instructions and model documentation
+- [x] Project report (PDF) — 10 pages
+- [x] Source code (`risk_analytics_dashboard.zip`)
+- [ ] Live dashboard URL *(Streamlit Cloud deployment — optional, +20 bonus)*
 
 ---
 
-## ⚠️ Limitations & Future Improvements
-
-**Limitations:**
-- ARIMA fitting time increases with data length (30–60 seconds for 5 years)
-- DCF accuracy depends on cash flow data availability in yfinance
-- Credit risk model uses synthetic training data (not real default data)
-- Monte Carlo assumes constant drift and volatility (no regime switching)
-
-**Future Improvements:**
-- Integrate real credit default datasets (Altman Z-score integration)
-- Add LSTM/Prophet forecasting as alternative to ARIMA
-- Implement multi-factor risk models (Fama-French 3-factor)
-- Add real-time WebSocket data streaming
-- Integrate SEBI/NSE API for live institutional data
-
----
-
-*Built with ❤️ for MCA Financial Analytics Capstone | Python + Streamlit + Plotly*
+*Built with ❤️ · Python + Streamlit + Plotly · MCA Financial Analytics Capstone*
